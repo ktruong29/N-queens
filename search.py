@@ -33,9 +33,12 @@ def genetic_search(problem, ngen=1000, pmut=0.1, n=20):
 def genetic_algorithm(population, fitness_fn, gene_pool=[0, 1], f_thres=None, ngen=1000, pmut=0.1):
     """[Figure 4.8]"""
     for i in range(ngen):
+        # 3-4-5. SELECTION - CROSSOVER - MUTATION
+        # Return a list of new population (Fig. 4.6 (e))
         population = [mutate(recombine(*select(2, population, fitness_fn)), gene_pool, pmut)
                       for i in range(len(population))]
 
+        # Select the fittest (least attacking pairs) from the list of new population and return it
         fittest_individual = fitness_threshold(fitness_fn, f_thres, population)
         if fittest_individual:
             return fittest_individual
